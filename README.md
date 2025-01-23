@@ -1,5 +1,3 @@
-Copy
-
 # Directory Scanning NestJS Project
 
 A NestJS-based project for scanning directories and their subdirectories in parallel using worker threads. This project demonstrates how to efficiently scan large directory structures while leveraging multi-core CPUs for improved performance.
@@ -10,7 +8,7 @@ A NestJS-based project for scanning directories and their subdirectories in para
 
 - **Parallel Directory Scanning**: Utilizes worker threads to scan directories in parallel, ensuring optimal performance.
 - **Depth-First Search (DFS) and Breadth-First Search (BFS)**: Supports both DFS and BFS approaches for directory traversal.
-- **Worker Pool**: Uses `workerpool` to manage a pool of worker threads for concurrent scanning.
+- **Worker Pool**: Uses `workerpool` library to manage a pool of worker threads for concurrent scanning.
 - **File Metadata**: Retrieves metadata for each file/directory, including:
   - File name
   - File path
@@ -25,7 +23,7 @@ A NestJS-based project for scanning directories and their subdirectories in para
 Before running the project, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v16 or higher)
-- [NestJS CLI](https://docs.nestjs.com/cli/overview) (optional but recommended)
+- [NestJS CLI](https://docs.nestjs.com/cli/overview) (recommended)
 - [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/) (package manager)
 
 ---
