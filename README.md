@@ -76,7 +76,9 @@ To scan a directory, send a POST request to the `/scan` endpoint with the direct
 #### Example Request
 
 ```bash
-curl -X POST http://localhost:3000/scan
+curl -X GET http://localhost:3000/scan/dfs
+curl -X GET http://localhost:3000/scan/bfs
+curl -X GET http://localhost:3000/scan/sync
 ```
 
 #### Example Response
