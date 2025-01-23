@@ -1,13 +1,13 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ScanService } from './scan.service';
 
 @Controller('scan')
 export class ScanController {
   constructor(private scanService: ScanService) {}
 
-  @Post()
+  @Get()
   async scanDir() {
-    await this.scanService.scanDir();
-    // await this.scanService.scanDirSync();
+    const result = await this.scanService.scanDir();
+    return result;
   }
 }
