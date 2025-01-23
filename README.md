@@ -71,7 +71,7 @@ npm run start
 
 ### Scanning a Directory
 
-To scan a directory, send a POST request to the `/scan` endpoint with the directory path in the request body.
+To scan a directory, send a GET request to the `/scan` endpoint with `/dfs`, `/bfs` or `/sync` route.
 
 #### Example Request
 
