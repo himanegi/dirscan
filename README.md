@@ -34,9 +34,22 @@ Before running the project, ensure you have the following installed:
 
 1\. Clone the repository:
 
+```bash
+git clone https://github.com/himanegi/dirscan.git
+cd dirscan
+```
+
 2\. Install dependencies:
 
+```bash
+npm install
+```
+
 3\. Build the project:
+
+```bash
+npm run build
+```
 
 ---
 
@@ -45,6 +58,10 @@ Before running the project, ensure you have the following installed:
 ### Running the Project
 
 1\. Start the NestJS application:
+
+```bash
+npm run start
+```
 
 2\. The application will start a server on `http://localhost:3000`.
 
@@ -57,17 +74,7 @@ To scan a directory, send a POST request to the `/scan` endpoint with the direct
 #### Example Request
 
 ```bash
-
 curl -X POST http://localhost:3000/scan
-
-  -H "Content-Type: application/json"
-
-  -d '{
-
-    "dirPath": "test-dir"
-
-  }'
-
 ```
 
 #### Example Response
@@ -76,29 +83,19 @@ curl -X POST http://localhost:3000/scan
 [
   {
     "file": "file1.txt",
-
     "filePath": "test-dir/file1.txt",
-
     "size": 1024,
-
     "modifiedTime": "2023-10-01T12:34:56.000Z",
-
     "isDirectory": false,
-
     "isFile": true
   },
 
   {
     "file": "dir1",
-
     "filePath": "test-dir/dir1",
-
     "size": 4096,
-
     "modifiedTime": "2023-10-01T12:34:56.000Z",
-
     "isDirectory": true,
-
     "isFile": false
   }
 ]
