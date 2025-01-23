@@ -1,4 +1,4 @@
-# Directory Scanning NestJS Project
+# Directory Scanning using Nest.js
 
 A NestJS-based project for scanning directories and their subdirectories in parallel using worker threads. This project demonstrates how to efficiently scan large directory structures while leveraging multi-core CPUs for improved performance.
 
