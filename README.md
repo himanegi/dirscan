@@ -1,99 +1,177 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Copy
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Directory Scanning NestJS Project
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A NestJS-based project for scanning directories and their subdirectories in parallel using worker threads. This project demonstrates how to efficiently scan large directory structures while leveraging multi-core CPUs for improved performance.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Project setup
+- **Parallel Directory Scanning**: Utilizes worker threads to scan directories in parallel, ensuring optimal performance.
+- **Depth-First Search (DFS) and Breadth-First Search (BFS)**: Supports both DFS and BFS approaches for directory traversal.
+- **Worker Pool**: Uses `workerpool` to manage a pool of worker threads for concurrent scanning.
+- **File Metadata**: Retrieves metadata for each file/directory, including:
+  - File name
+  - File path
+  - File size
+  - Last modified time
+  - Whether it's a file or directory
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## Prerequisites
 
-```bash
-# development
-$ npm run start
+Before running the project, ensure you have the following installed:
 
-# watch mode
-$ npm run start:dev
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [NestJS CLI](https://docs.nestjs.com/cli/overview) (optional but recommended)
+- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/) (package manager)
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## Installation
 
-```bash
-# unit tests
-$ npm run test
+1\. Clone the repository:
 
-# e2e tests
-$ npm run test:e2e
+2\. Install dependencies:
 
-# test coverage
-$ npm run test:cov
-```
+3\. Build the project:
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Usage
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Running the Project
+
+1\. Start the NestJS application:
+
+2\. The application will start a server on `http://localhost:3000`.
+
+---
+
+### Scanning a Directory
+
+To scan a directory, send a POST request to the `/scan` endpoint with the directory path in the request body.
+
+#### Example Request
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+
+curl -X POST http://localhost:3000/scan
+
+  -H "Content-Type: application/json"
+
+  -d '{
+
+    "dirPath": "test-dir"
+
+  }'
+
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#### Example Response
 
-## Resources
+```json
+[
+  {
+    "file": "file1.txt",
 
-Check out a few resources that may come in handy when working with NestJS:
+    "filePath": "test-dir/file1.txt",
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+    "size": 1024,
 
-## Support
+    "modifiedTime": "2023-10-01T12:34:56.000Z",
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    "isDirectory": false,
 
-## Stay in touch
+    "isFile": true
+  },
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  {
+    "file": "dir1",
+
+    "filePath": "test-dir/dir1",
+
+    "size": 4096,
+
+    "modifiedTime": "2023-10-01T12:34:56.000Z",
+
+    "isDirectory": true,
+
+    "isFile": false
+  }
+]
+```
+
+---
+
+### Configuration
+
+You can configure the worker pool settings in the `ScanService` class:
+
+```typescript
+this.pool = workerpool.pool(join(__dirname, 'scan-worker'), {
+  maxWorkers: 5, // Adjust the number of workers
+});
+```
+
+---
+
+## Project Structure
+
+```
+
+dirscan/
+
+├── src/
+│   ├── scan/
+│   │   ├── scan.service.ts       # Service for directory scanning
+│   │   ├── scan.controller.ts    # Controller for handling scan requests
+│   │   ├── scan.worker.ts        # Worker script for parallel scanning
+│   ├── app.module.ts             # Root module
+│   ├── main.ts                   # Application entry point
+├── test-dir/                     # Example directory for testing
+├── README.md                     # This file
+├── package.json                  # Project dependencies and scripts
+├── tsconfig.json                 # TypeScript configuration
+
+```
+
+---
+
+## Performance
+
+The project uses worker threads to parallelize directory scanning, making it suitable for large directory structures. You can adjust the number of workers in the worker pool to optimize performance based on your system's CPU cores.
+
+---
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please follow these steps:
+
+1\. Fork the repository.
+
+2\. Create a new branch for your feature or bugfix.
+
+3\. Commit your changes and push to the branch.
+
+4\. Submit a pull request.
+
+---
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+- [NestJS](https://nestjs.com/) for the awesome framework.
+
+- [workerpool](https://github.com/josdejong/workerpool) for simplifying worker thread management.
+
+---
+
+Enjoy scanning directories with NestJS! 🚀

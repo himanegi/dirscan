@@ -5,9 +5,19 @@ import { ScanService } from './scan.service';
 export class ScanController {
   constructor(private scanService: ScanService) {}
 
-  @Get()
-  async scanDir() {
-    const result = await this.scanService.scanDir();
+  @Get('dfs')
+  async scanDirDFS() {
+    const result = await this.scanService.scanDirDFS();
+    return result;
+  }
+  @Get('bfs')
+  async scanDirBFS() {
+    const result = await this.scanService.scanDirBFS();
+    return result;
+  }
+  @Get('sync')
+  async scanDirSync() {
+    const result = await this.scanService.scanDirSync();
     return result;
   }
 }
