@@ -63,16 +63,27 @@ export class ScanService {
   async scanParallelBFS(dirPath: string) {
     const queue: string[] = [dirPath];
     const allResults = [];
+    let level = 0;
 
+    // jab tak queue is not empty
     while (queue.length > 0) {
-      const currentDir = queue.shift();
-      const results = await this.scanWithWorker(currentDir);
-      allResults.push(...results);
-      results
-        .filter((file) => file.isDirectory)
-        .forEach((dir) => queue.push(dir.filePath));
+      console.time(`lvl sbke niklenge: ${level}`);
+      const currentLevelDir = queue.splice(0, queue.length);
+      const levelResults = await Promise.all(
+        currentLevelDir.map((dir) => this.scanWithWorker(dir)),
+      );
+      allResults.push(...levelResults.flat());
+
+      levelResults.forEach((results) => {
+        results
+          .filter((file) => file.isDirectory)
+          .forEach((dir) => queue.push(dir.filePath));
+      });
+      console.timeEnd(`lvl sbke niklenge: ${level}`);
+      level++;
     }
-    return allResults;
+
+    return allResults.flat();
   }
 
   async scanDirSync() {
