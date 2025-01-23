@@ -18,6 +18,10 @@ A NestJS-based project for scanning directories and their subdirectories in para
 
 ---
 
+## Workflow
+
+![workflow](./src/public/workflow.png)
+
 ## Prerequisites
 
 Before running the project, ensure you have the following installed:
