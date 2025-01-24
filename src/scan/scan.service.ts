@@ -4,6 +4,7 @@ import * as workerpool from 'workerpool';
 import { join } from 'path';
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import * as os from 'os';
 
 @Injectable()
 export class ScanService {
@@ -11,10 +12,9 @@ export class ScanService {
 
   constructor() {
     this.pool = workerpool.pool(join(__dirname, 'scan-worker'), {
-      maxWorkers: 5,
+      maxWorkers: os.cpus().length,
     });
   }
-
   async scanSync(dirPath: string): Promise<any[]> {
     const files = await fs.readdir(dirPath);
     const results = await Promise.all(
@@ -27,7 +27,6 @@ export class ScanService {
           size: stats.size,
           modifiedTime: stats.mtime,
           isDirectory: stats.isDirectory(),
-          isFile: stats.isFile(),
         };
       }),
     );
@@ -63,11 +62,9 @@ export class ScanService {
   async scanParallelBFS(dirPath: string) {
     const queue: string[] = [dirPath];
     const allResults = [];
-    let level = 0;
 
     // jab tak queue is not empty
     while (queue.length > 0) {
-      console.time(`lvl sbke niklenge: ${level}`);
       const currentLevelDir = queue.splice(0, queue.length);
       const levelResults = await Promise.all(
         currentLevelDir.map((dir) => this.scanWithWorker(dir)),
@@ -79,8 +76,6 @@ export class ScanService {
           .filter((file) => file.isDirectory)
           .forEach((dir) => queue.push(dir.filePath));
       });
-      console.timeEnd(`lvl sbke niklenge: ${level}`);
-      level++;
     }
 
     return allResults.flat();

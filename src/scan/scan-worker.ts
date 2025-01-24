@@ -16,7 +16,6 @@ export async function scanDirectory({ dirPath }: { dirPath: string }) {
           size: stats.size,
           modifiedTime: stats.mtime,
           isDirectory: stats.isDirectory(),
-          isFile: stats.isFile(),
         };
       }),
     );
