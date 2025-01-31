@@ -15,7 +15,7 @@ export class ScanService {
       maxWorkers: os.cpus().length,
     });
   }
-  async scanSync(dirPath: string): Promise<any[]> {
+  async scanSync(dirPath: string) {
     const files = await fs.readdir(dirPath);
     const results = await Promise.all(
       files.map(async (file) => {
@@ -78,7 +78,7 @@ export class ScanService {
       });
     }
 
-    return allResults.flat();
+    return allResults;
   }
 
   async scanDirSync() {
@@ -87,7 +87,7 @@ export class ScanService {
     const scanResults = await this.scanSync(rootDir);
     const endTime = performance.now();
     console.log(`Sync scan took ${endTime - startTime}ms`);
-    return scanResults;
+    return scanResults.flat();
   }
 
   async scanDirDFS() {
@@ -105,7 +105,7 @@ export class ScanService {
     const scanResults = await this.scanParallelBFS(rootDir);
     const endTime = performance.now();
     console.log(`BFS scan took ${endTime - startTime}ms`);
-    return scanResults;
+    return scanResults.flat();
   }
 
   async onModuleDestroy() {
